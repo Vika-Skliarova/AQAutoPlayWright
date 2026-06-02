@@ -1,0 +1,19 @@
+import { test, expect } from '@playwright/test';
+import path from 'path';
+
+const authFile = '.auth/userState.json';
+
+test('login and save auth state', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByRole('button', { name: 'Sign In' }).click();
+
+  await page.locator('#signinEmail').fill(process.env.USER_EMAIL!);
+  await page.locator('#signinPassword').fill(process.env.USER_GARAGE_PASSWORD!);
+
+  await page.getByRole('button', { name: 'Login' }).click();
+
+  await expect(page).toHaveURL(/panel\/garage/);
+
+  await page.context().storageState({ path: authFile });
+});

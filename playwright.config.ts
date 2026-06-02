@@ -43,28 +43,53 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
+      name: 'setup',
+      testMatch: /auth\.setup\.ts/,
+    },
+
+    {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+        ...devices['Desktop Chrome'],
+        storageState: '.auth/userState.json', 
+      },
+      dependencies: ['setup'],
     },
 
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { 
+        ...devices['Desktop Firefox'],
+        storageState: '.auth/userState.json',
+      },
+      dependencies: ['setup'],
     },
 
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { 
+        ...devices['Desktop Safari'],
+        storageState: '.auth/userState.json',
+      },
+      dependencies: ['setup'],
     },
 
     /* Test against mobile viewports. */
     {
        name: 'Mobile Chrome',
-       use: { ...devices['Pixel 5'] },
+       use: { 
+         ...devices['Pixel 5'],
+         storageState: '.auth/userState.json',
+       },
+       dependencies: ['setup'],
     },
     {
        name: 'Mobile Safari',
-       use: { ...devices['iPhone 12'] },
+       use: { 
+         ...devices['iPhone 12'],
+         storageState: '.auth/userState.json',
+       },
+       dependencies: ['setup'],
     },
 
     /* Test against branded browsers. */
