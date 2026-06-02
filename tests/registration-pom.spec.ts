@@ -16,8 +16,9 @@ test.describe('Registration form', () => {
 
     test('Positive: success registration', async ({ page }) => {
         const uniqueEmail = `aqa-user${Date.now()}@test.com`;
+        const password = process.env.REG_PASSWORD || '';
 
-        await regForm.register('User', 'Tester', uniqueEmail, 'Password123');
+        await regForm.register('User', 'Tester', uniqueEmail, password);
 
         await expect(page).toHaveURL(/.*panel/);
     });
