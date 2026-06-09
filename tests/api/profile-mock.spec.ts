@@ -27,4 +27,5 @@ test.describe('Profile UI Mocking', () => {
 
     await expect(profileNameElement).toBeVisible();
   });
+  
 });
