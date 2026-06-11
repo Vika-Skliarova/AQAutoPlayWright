@@ -16,11 +16,11 @@ jobs:
       options: --init --ipc=host
 
     env:
-      BASE_URL: https://guest:welcome2qauto@qauto.forstudy.space/
-      USER_EMAIL: kureninovavika2@gmail.com
-      USER_PASSWORD: Test1234A
-      HTTP_USERNAME: guest
-      HTTP_PASSWORD: welcome2qauto
+      BASE_URL: ${{ secrets.BASE_URL }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+      USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+      HTTP_USERNAME: ${{ secrets.HTTP_USERNAME }}
+      HTTP_PASSWORD: ${{ secrets.HTTP_PASSWORD }}
 
     steps:
       - name: Checkout repository
@@ -35,10 +35,18 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test --reporter=html
 
+      - name: Show files after tests
+        if: always()
+        run: |
+          pwd
+          ls -la
+          ls -la playwright-report || true
+
       - name: Upload Playwright HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
+          if-no-files-found: warn
           retention-days: 7
