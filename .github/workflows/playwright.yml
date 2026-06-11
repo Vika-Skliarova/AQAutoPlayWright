@@ -16,7 +16,7 @@ jobs:
       options: --init --ipc=host
 
     env:
-      BASE_URL: https://qauto.forstudy.space/
+      BASE_URL: https://guest:welcome2qauto@qauto.forstudy.space/
       HTTP_USERNAME: guest
       HTTP_PASSWORD: welcome2qauto
       USER_EMAIL: kureninovavika2@gmail.com
