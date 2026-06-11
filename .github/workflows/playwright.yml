@@ -9,14 +9,13 @@ jobs:
   playwright-tests:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.39.0-jammy
+      image: mcr.microsoft.com/playwright:v1.59.1-noble
       options: --init --ipc=host
 
     env:
       BASE_URL: https://guest:welcome2qauto@qauto.forstudy.space/
       USER_EMAIL: kureninovavika2@gmail.com
       USER_PASSWORD: Test1234A
-      USER_GARAGE_PASSWORD: Test1234A
 
     steps:
       - name: Checkout repository
@@ -24,9 +23,6 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
 
       - name: Run Playwright tests
         run: npx playwright test
