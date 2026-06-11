@@ -4,9 +4,9 @@ import { validCarData, invalidCarData } from '../test-data/cars.data';
 
 test.describe('Create cars POST', () => {
 
-// Positive scenario
-  test('Should successfully create a car with valid data', async ({ request }) => {
-    const response = await request.post('/api/cars', {
+  // Positive scenario
+  test('Should successfully create a car with valid data', async ({ page }) => {
+    const response = await page.request.post('/api/cars', {
       data: validCarData
     });
 
@@ -20,8 +20,8 @@ test.describe('Create cars POST', () => {
   });
 
   // Negative scenario #1 (missing mileage)
-  test('Should return 400 error when mileage is missing', async ({ request }) => {
-    const response = await request.post('/api/cars', {
+  test('Should return 400 error when mileage is missing', async ({ page }) => {
+    const response = await page.request.post('/api/cars', {
       data: invalidCarData.missingMileage
     });
 
@@ -33,8 +33,8 @@ test.describe('Create cars POST', () => {
   });
 
   // Negative scenario #2 (non-existing car model)
-  test('Should return 404 error for non-existing car model', async ({ request }) => {
-    const response = await request.post('/api/cars', {
+  test('Should return 404 error for non-existing car model', async ({ page }) => {
+    const response = await page.request.post('/api/cars', {
       data: invalidCarData.nonExistingModel
     });
 
