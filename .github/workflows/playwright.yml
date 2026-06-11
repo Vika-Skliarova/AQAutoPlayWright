@@ -1,4 +1,4 @@
-name: Playwright Tests in Docker
+name: Playwright Tests
 
 on:
   push:
@@ -10,7 +10,6 @@ on:
 jobs:
   playwright-tests:
     runs-on: ubuntu-latest
-
     container:
       image: mcr.microsoft.com/playwright:v1.59.1-noble
       options: --init --ipc=host
@@ -29,19 +28,8 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
-
       - name: Run Playwright tests
         run: npx playwright test --reporter=html
-
-      - name: Show files after tests
-        if: always()
-        run: |
-          pwd
-          ls -la
-          ls -la playwright-report || true
 
       - name: Upload Playwright HTML report
         if: always()
@@ -49,5 +37,4 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          if-no-files-found: warn
           retention-days: 7
