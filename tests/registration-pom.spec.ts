@@ -9,6 +9,13 @@ test.describe('Registration form', () => {
         const regForm = new RegistrationFormComponent(page);
 
         await page.goto('/');
+
+        const logoutBtn = page.locator('nav >> text=Logout').or(page.locator('button:has-text("Logout")'));
+        if (await logoutBtn.isVisible()) {
+            await logoutBtn.click();
+            await page.goto('/');
+        }
+
         await mainPage.openRegistrationModal();
 
         await regForm.nameInput.focus();
@@ -41,6 +48,13 @@ test.describe('Registration form', () => {
         const regForm = new RegistrationFormComponent(page);
 
         await page.goto('/');
+
+        const logoutBtn = page.locator('nav >> text=Logout').or(page.locator('button:has-text("Logout")'));
+        if (await logoutBtn.isVisible()) {
+            await logoutBtn.click();
+            await page.goto('/');
+        }
+
         await mainPage.openRegistrationModal();
 
         const uniqueEmail = `aqa-user${Date.now()}@test.com`;

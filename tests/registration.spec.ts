@@ -4,23 +4,25 @@ test.describe('Registration form', () => {
 
     test('Negative validations for registration fields', async ({ page }) => {
         await page.goto('/');
+
+        const logoutBtn = page.locator('nav >> text=Logout').or(page.locator('button:has-text("Logout")'));
+        if (await logoutBtn.isVisible()) {
+            await logoutBtn.click();
+            await page.goto('/');
+        }
+
         await page.getByRole('button', { name: 'Sign up' }).click();
 
         const nameInput = page.locator('#signupName');
         const nameError = page.locator('#signupName + .invalid-feedback');
-        
         const emailInput = page.locator('#signupEmail');
         const emailError = page.locator('#signupEmail + .invalid-feedback');
-        
         const lastNameInput = page.locator('#signupLastName');
         const lastNameError = page.locator('#signupLastName + .invalid-feedback');
-        
         const passwordInput = page.locator('#signupPassword');
         const passwordError = page.locator('#signupPassword + .invalid-feedback');
-        
         const repeatPasswordInput = page.locator('#signupRepeatPassword');
         const repeatPasswordError = page.locator('#signupRepeatPassword + .invalid-feedback');
-        
         const registerBtn = page.getByRole('button', { name: 'Register' });
 
         await nameInput.focus();
@@ -51,10 +53,16 @@ test.describe('Registration form', () => {
 
     test('Positive: success registration', async ({ page }) => {
         await page.goto('/');
+
+        const logoutBtn = page.locator('nav >> text=Logout').or(page.locator('button:has-text("Logout")'));
+        if (await logoutBtn.isVisible()) {
+            await logoutBtn.click();
+            await page.goto('/');
+        }
+
         await page.getByRole('button', { name: 'Sign up' }).click();
 
         const uniqueEmail = `aqa-user${Date.now()}@test.com`;
-
         const nameInput = page.locator('#signupName');
         const lastNameInput = page.locator('#signupLastName');
         const emailInput = page.locator('#signupEmail');

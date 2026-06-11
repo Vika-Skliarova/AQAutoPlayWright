@@ -1,13 +1,44 @@
 import { test, expect } from '@playwright/test';
-// Import the data for valid and invalid car creation acenarios
 import { validCarData, invalidCarData } from '../test-data/cars.data';
 
 test.describe('Create cars POST', () => {
+  let apiHeaders: Record<string, string> = {};
+
+  test.beforeAll(async ({ playwright }) => {
+    const basicAuth = Buffer.from('guest:welcome2qauto').toString('base64');
+    
+    const requestContext = await playwright.request.newContext({
+      baseURL: 'https://qauto.forstudy.space',
+      extraHTTPHeaders: {
+        'Authorization': `Basic ${basicAuth}`
+      }
+    });
+
+    const loginResponse = await requestContext.post('/api/auth/signin', {
+      data: {
+        email: process.env.USER_EMAIL || 'kureninovavika2@gmail.com',
+        password: process.env.USER_PASSWORD || 'Test1234A',
+        remember: false
+      }
+    });
+
+    expect(loginResponse.status()).toBe(200);
+
+    const setCookieHeader = loginResponse.headers()['set-cookie'] || '';
+    const sidCookie = setCookieHeader.split(';')[0]; 
+
+    apiHeaders = {
+      'Authorization': `Basic ${basicAuth}`,
+      'Cookie': sidCookie,
+      'Content-Type': 'application/json'
+    };
+  });
 
   // Positive scenario
-  test('Should successfully create a car with valid data', async ({ page }) => {
-    const response = await page.request.post('/api/cars', {
-      data: validCarData
+  test('Should successfully create a car with valid data', async ({ request }) => {
+    const response = await request.post('/api/cars', {
+      data: validCarData,
+      headers: apiHeaders
     });
 
     expect(response.status()).toBe(201);
@@ -20,9 +51,10 @@ test.describe('Create cars POST', () => {
   });
 
   // Negative scenario #1 (missing mileage)
-  test('Should return 400 error when mileage is missing', async ({ page }) => {
-    const response = await page.request.post('/api/cars', {
-      data: invalidCarData.missingMileage
+  test('Should return 400 error when mileage is missing', async ({ request }) => {
+    const response = await request.post('/api/cars', {
+      data: invalidCarData.missingMileage,
+      headers: apiHeaders
     });
 
     expect(response.status()).toBe(400);
@@ -33,9 +65,10 @@ test.describe('Create cars POST', () => {
   });
 
   // Negative scenario #2 (non-existing car model)
-  test('Should return 404 error for non-existing car model', async ({ page }) => {
-    const response = await page.request.post('/api/cars', {
-      data: invalidCarData.nonExistingModel
+  test('Should return 404 error for non-existing car model', async ({ request }) => {
+    const response = await request.post('/api/cars', {
+      data: invalidCarData.nonExistingModel,
+      headers: apiHeaders
     });
 
     expect(response.status()).toBe(404);
