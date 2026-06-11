@@ -1,7 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const envConfig = require('./config/env.config.js');
-envConfig.config();
+
+if (!process.env.CI) {
+  envConfig.config();
+}
 
 /**
  * Read environment variables from file.
