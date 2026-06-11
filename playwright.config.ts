@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 const envConfig = require('./config/env.config.js');
 
-if (!process.env.CI) {
+if (process.env.CI !== 'true') {
   envConfig.config();
 }
 
