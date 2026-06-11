@@ -2,9 +2,9 @@ name: Playwright Tests in Docker
 
 on:
   push:
-    branches: [main, master]
+    branches: '**'
   pull_request:
-    branches: [main, master]
+    branches: '**'
   workflow_dispatch:
 
 jobs:
@@ -31,6 +31,7 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
 
       - name: Run Playwright tests
         run: npx playwright test --reporter=html
