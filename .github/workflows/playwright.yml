@@ -21,6 +21,7 @@ jobs:
       HTTP_PASSWORD: welcome2qauto
       USER_EMAIL: kureninovavika2@gmail.com
       USER_PASSWORD: Test1234A
+      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS: true
 
     steps:
       - name: Checkout repository
@@ -29,14 +30,5 @@ jobs:
       - name: Install project dependencies
         run: npm ci
 
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-
       - name: Run Playwright tests
-        run: npx playwright test
-
-      - name: Show files after tests
-        if: always()
-        run: |
-          pwd
-          ls -la
+        run: PW_CLI_IGNORE_VERSION_CHECK=1 npx playwright test
