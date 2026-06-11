@@ -28,11 +28,11 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.Base_URL,
+    baseURL: process.env.BASE_URL,
 
     httpCredentials: {
-      username: process.env.USER_NAME || '',
-      password: process.env.USER_PASSWORD || '',
+      username: process.env.HTTP_USERNAME || '',
+      password: process.env.HTTP_PASSWORD || '',
     },
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */

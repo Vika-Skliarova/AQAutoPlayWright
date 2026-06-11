@@ -9,7 +9,7 @@ test('login and save auth state', async ({ page }) => {
   await page.getByRole('button', { name: 'Sign In' }).click();
 
   await page.locator('#signinEmail').fill(process.env.USER_EMAIL!);
-  await page.locator('#signinPassword').fill(process.env.USER_GARAGE_PASSWORD!);
+  await page.locator('#signinPassword').fill(process.env.USER_PASSWORD!);
 
   await page.getByRole('button', { name: 'Login' }).click();
 
