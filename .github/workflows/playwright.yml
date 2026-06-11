@@ -19,12 +19,7 @@ jobs:
       options: --init --ipc=host
 
     env:
-      TEST_ENV: QA 
-      BASE_URL: ${{ secrets.BASE_URL }}
-      HTTP_USERNAME: ${{ secrets.HTTP_USERNAME }}
-      HTTP_PASSWORD: ${{ secrets.HTTP_PASSWORD }}
-      USER_EMAIL: ${{ secrets.USER_EMAIL }}
-      USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+      TEST_ENV: QA
 
     steps:
       - name: Checkout repository
