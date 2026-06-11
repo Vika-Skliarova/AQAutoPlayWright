@@ -10,7 +10,7 @@ test.describe('Registration form', () => {
         mainPage = new MainPage(page);
         regForm = new RegistrationFormComponent(page);
 
-        await mainPage.openMainPage();
+        await page.goto('/');
         await mainPage.openRegistrationModal();
     });
 
