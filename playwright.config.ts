@@ -1,9 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
-if (!process.env.CI) {
-  dotenv.config({ path: './config/.env.qa' });
-}
+dotenv.config();
 
 export default defineConfig({
   testDir: './tests',
@@ -15,6 +13,7 @@ export default defineConfig({
 
   use: {
     baseURL: process.env.BASE_URL,
+    ignoreHTTPSErrors: true,
     httpCredentials: {
       username: process.env.HTTP_USERNAME || '',
       password: process.env.HTTP_PASSWORD || '',
