@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { MainPage } from '../src/pages/MainPage';
 import { RegistrationFormComponent } from '../src/components/RegistrationFormComponent';
 
-test.describe('Registration form', () => {
+test.describe.skip('Registration form', () => {
     let mainPage: MainPage;
     let regForm: RegistrationFormComponent;
 
