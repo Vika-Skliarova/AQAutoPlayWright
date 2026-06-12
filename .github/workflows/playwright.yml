@@ -20,6 +20,12 @@ jobs:
 
     env:
       TEST_ENV: QA
+      BASE_URL: ${{ secrets.BASE_URL }}
+      USER_EMAIL: ${{ secrets.USER_EMAIL }}
+      USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+      HTTP_USERNAME: ${{ secrets.HTTP_USERNAME }}
+      HTTP_PASSWORD: ${{ secrets.HTTP_PASSWORD }}
+      REG_PASSWORD: ${{ secrets.REG_PASSWORD }}
 
     steps:
       - name: Checkout repository

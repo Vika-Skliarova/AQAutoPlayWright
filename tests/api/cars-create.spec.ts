@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 // Import the data for valid and invalid car creation acenarios
 import { validCarData, invalidCarData } from '../test-data/cars.data';
 
-test.describe.skip('Create cars POST', () => {
+test.describe('Create cars POST', () => {
 
 // Positive scenario
   test('Should successfully create a car with valid data', async ({ request }) => {
